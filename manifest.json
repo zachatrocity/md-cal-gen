@@ -3,8 +3,8 @@
 	"name": "Markdown Calendar Generator",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "An intentionally simple obsidian markdown table calendar generator",
+	"description": "An intentionally simple markdown table calendar generator",
 	"author": "Zach Russell",
-	"authorUrl": "https://github.com/zachatrocity/md-cal-gen",
+	"authorUrl": "https://github.com/zachatrocity",
 	"isDesktopOnly": false
 }
