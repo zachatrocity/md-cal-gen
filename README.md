@@ -1,6 +1,44 @@
-# Markdown Calendar Generator for Obsidian
+<div align="center">
 
-An intentionally simple Obsidian plugin that generates markdown-based table calendars. This plugin allows you to insert beautifully formatted calendar tables in your notes.
+```
+    ▌      ▜         
+▛▛▌▛▌▄▖▛▘▀▌▐ ▄▖▛▌█▌▛▌
+▌▌▌▙▌  ▙▖█▌▐▖  ▙▌▙▖▌▌
+               ▄▌    
+```
+
+[![Add to Obsidian](https://img.shields.io/badge/Add%20to-Obsidian-7963E5?style=for-the-badge&logo=obsidian)](https://obsidian.md/plugins?id=md-cal-gen)
+
+An intentionally simple Obsidian plugin that generates markdown-based table calendars. This plugin allows you to quickly insert formatted calendar tables in your notes that look like this...
+
+</div>
+
+## November 2025
+
+| Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday |
+| ------ | ------ | ------- | --------- | -------- | ------ | -------- |
+|        |        |         |           |          |        | 1 🟢     |
+| 2 🟢   | 3 🟢   | 4 🟢    | 5 🟢      | 6 🟢     | 7 🟢   | 8 🟢     |
+| 9 🟢   | 10 🟢  | 11 🟢   | 12 🟢     | 13 🟢    | 14 🟢  | 15 🟢    |
+| 16 🟢  | 17 🟢  | 18 🟢   | 19 🟢     | 20 🟢    | 21 🟢  | 22 🟢    |
+| 23 🟢  | 24 🟢  | 25 🟢   | 26 🟢     | 27 🟢    | 28 🟢  | 29 🟢    |
+| 30 🟢  |        |         |           |          |        |          |
+
+
+or this...
+
+## Week of Nov 2 - Nov 8, 2025
+
+| Day | Date | Notes |
+|-----|------|-------|
+| Sunday | Nov 2 | |
+| Monday | Nov 3 | |
+| Tuesday | Nov 4 | |
+| Wednesday | Nov 5 | |
+| Thursday | Nov 6 | |
+| Friday | Nov 7 | |
+| Saturday | Nov 8 | |
+
 
 ## Features
 
@@ -19,21 +57,6 @@ An intentionally simple Obsidian plugin that generates markdown-based table cale
 3. Enter the month in YYYY-MM format (e.g., 2025-11 for November 2025)
 4. Click "Insert Month Calendar"
 
-Example output:
-
-```markdown
-## November 2025
-
-| Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday |
-|--------|--------|---------|-----------|----------|--------|----------|
-|  |  |  |  |  |  | 1 |
-| 2 | 3 | 4 | 5 | 6 | 7 | 8 |
-| 9 | 10 | 11 | 12 | 13 | 14 | 15 |
-| 16 | 17 | 18 | 19 | 20 | 21 | 22 |
-| 23 | 24 | 25 | 26 | 27 | 28 | 29 |
-| 30 |  |  |  |  |  |  |
-```
-
 ### Week View Calendar
 
 1. Open a note where you want to insert a calendar
@@ -41,21 +64,6 @@ Example output:
 3. Enter any date in the week in YYYY-MM-DD format (e.g., 2025-11-03)
 4. Click "Insert Week Calendar"
 
-Example output:
-
-```markdown
-## Week of Nov 2 - Nov 8, 2025
-
-| Day | Date | Notes |
-|-----|------|-------|
-| Sunday | Nov 2 | |
-| Monday | Nov 3 | |
-| Tuesday | Nov 4 | |
-| Wednesday | Nov 5 | |
-| Thursday | Nov 6 | |
-| Friday | Nov 7 | |
-| Saturday | Nov 8 | |
-```
 
 ### Quick Insert Current Calendar
 

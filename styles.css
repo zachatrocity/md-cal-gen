@@ -1,7 +1,8 @@
 /* Markdown Calendar Generator Styles */
 
 /* Calendar modal styles */
-.calendar-date-input {
+.calendar-date-input,
+.calendar-placeholder-input {
   width: 100%;
   padding: 8px;
   border-radius: 4px;

@@ -17,15 +17,6 @@ export default class MarkdownCalendarPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		// Add command to open the general calendar modal
-		this.addCommand({
-			id: 'insert-calendar',
-			name: 'Insert calendar',
-			editorCallback: (editor: Editor) => {
-				new CalendarModal(this.app, editor, this.settings).open();
-			}
-		});
-
 		// Add command to insert month calendar
 		this.addCommand({
 			id: 'insert-month-calendar',
@@ -61,7 +52,8 @@ export default class MarkdownCalendarPlugin extends Plugin {
 				
 				if (this.settings.defaultView === 'month') {
 					const monthStr = `${year}-${formattedMonth}`; // YYYY-MM
-					const calendar = generateMonthCalendar(monthStr);
+					// Use empty placeholder for quick insert
+					const calendar = generateMonthCalendar(monthStr, '');
 					editor.replaceSelection(calendar);
 				} else {
 					const calendar = generateWeekCalendar(formattedDate);
@@ -86,101 +78,6 @@ export default class MarkdownCalendarPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-	}
-}
-
-class CalendarModal extends Modal {
-	private editor: Editor;
-	private settings: CalendarSettings;
-
-	constructor(app: App, editor: Editor, settings: CalendarSettings) {
-		super(app);
-		this.editor = editor;
-		this.settings = settings;
-	}
-
-	onOpen() {
-		const {contentEl} = this;
-		contentEl.createEl('h2', {text: 'Insert Calendar'});
-
-		// Create view type selection
-		new Setting(contentEl)
-			.setName('Calendar View')
-			.setDesc('Choose between month or week view')
-			.addDropdown(dropdown => {
-				dropdown
-					.addOption('month', 'Month View')
-					.addOption('week', 'Week View')
-					.setValue(this.settings.defaultView)
-					.onChange(value => {
-						const dateInput = contentEl.querySelector('.calendar-date-input') as HTMLInputElement;
-						if (value === 'month') {
-							dateInput.placeholder = 'YYYY-MM (e.g., 2025-11)';
-						} else {
-							dateInput.placeholder = 'YYYY-MM-DD (e.g., 2025-11-03)';
-						}
-					});
-			});
-
-		// Create date input
-		const dateInputSetting = new Setting(contentEl)
-			.setName('Date')
-			.setDesc('Enter date in format YYYY-MM for month view or YYYY-MM-DD for week view');
-		
-		const dateInput = dateInputSetting.controlEl.createEl('input', {
-			attr: {
-				type: 'text',
-				placeholder: this.settings.defaultView === 'month' 
-					? 'YYYY-MM (e.g., 2025-11)' 
-					: 'YYYY-MM-DD (e.g., 2025-11-03)',
-				class: 'calendar-date-input'
-			}
-		});
-
-		// Get today's date as default
-		const today = new Date();
-		const year = today.getFullYear();
-		const month = String(today.getMonth() + 1).padStart(2, '0');
-		const day = String(today.getDate()).padStart(2, '0');
-		
-		if (this.settings.defaultView === 'month') {
-			dateInput.value = `${year}-${month}`;
-		} else {
-			dateInput.value = `${year}-${month}-${day}`;
-		}
-
-		// Create button to insert calendar
-		new Setting(contentEl)
-			.addButton(button => {
-				button
-					.setButtonText('Insert Calendar')
-					.setCta()
-					.onClick(() => {
-						const viewType = (contentEl.querySelector('.setting-item:first-child select') as HTMLSelectElement).value as 'month' | 'week';
-						const dateValue = dateInput.value;
-						
-						try {
-							let calendar: string;
-							
-							if (viewType === 'month') {
-								calendar = generateMonthCalendar(dateValue);
-							} else {
-								calendar = generateWeekCalendar(dateValue);
-							}
-							
-							this.editor.replaceSelection(calendar);
-							this.close();
-							new Notice(`Inserted ${viewType} calendar`);
-						} catch (error) {
-							new Notice(`Error: ${error.message}`);
-						}
-					});
-			});
-	}
-
-	onClose() {
-		const {contentEl} = this;
-		contentEl.empty();
 	}
 }
 
@@ -214,6 +111,18 @@ class MonthCalendarModal extends Modal {
 		const month = String(today.getMonth() + 1).padStart(2, '0');
 		dateInput.value = `${year}-${month}`;
 
+		// Create placeholder input
+		const placeholderInputSetting = new Setting(contentEl)
+			.setName('Day Placeholder')
+			.setDesc('Optional text to add alongside the day number (e.g., " 📝" will show "1 📝")');
+		
+		const placeholderInput = placeholderInputSetting.controlEl.createEl('input', {
+			attr: {
+				type: 'text',
+				placeholder: 'e.g., " 📝" or " []"'
+			}
+		});
+
 		// Create button to insert calendar
 		new Setting(contentEl)
 			.addButton(button => {
@@ -222,7 +131,7 @@ class MonthCalendarModal extends Modal {
 					.setCta()
 					.onClick(() => {
 						try {
-							const calendar = generateMonthCalendar(dateInput.value);
+							const calendar = generateMonthCalendar(dateInput.value, placeholderInput.value);
 							this.editor.replaceSelection(calendar);
 							this.close();
 							new Notice('Inserted month calendar');

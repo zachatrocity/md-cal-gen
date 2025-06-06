@@ -5,9 +5,10 @@
 /**
  * Generates a markdown table for a month view calendar
  * @param date A date string in the format YYYY-MM or a Date object
+ * @param placeholder Optional text to add alongside the day number
  * @returns A markdown string representing the month calendar
  */
-export function generateMonthCalendar(date: string | Date): string {
+export function generateMonthCalendar(date: string | Date, placeholder: string = ''): string {
     // Parse the date
     const targetDate = typeof date === 'string' ? parseDate(date) : new Date(date);
     
@@ -53,8 +54,8 @@ export function generateMonthCalendar(date: string | Date): string {
             tableRow += '\n|';
         }
         
-        // Add the current day to the table
-        tableRow += ` ${currentDay} |`;
+        // Add the current day to the table with placeholder
+        tableRow += ` ${currentDay}${placeholder} |`;
         
         // Move to the next day
         currentDay++;
