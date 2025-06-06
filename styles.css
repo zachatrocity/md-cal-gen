@@ -1,8 +1,24 @@
-/*
+/* Markdown Calendar Generator Styles */
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+/* Calendar modal styles */
+.calendar-date-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+}
 
-If your plugin does not need CSS, delete this file.
+/* Calendar table styles - these will affect the rendered markdown tables */
+.markdown-rendered table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
 
-*/
+.markdown-rendered table th,
+.markdown-rendered table td {
+  padding: 8px;
+  text-align: center;
+}

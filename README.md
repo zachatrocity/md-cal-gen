@@ -1,94 +1,102 @@
-# Obsidian Sample Plugin
+# Markdown Calendar Generator for Obsidian
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+An intentionally simple Obsidian plugin that generates markdown-based table calendars. This plugin allows you to insert beautifully formatted calendar tables in your notes.
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+## Features
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+- Generate month view calendars (e.g., November 2025)
+- Generate week view calendars (e.g., week of Nov 3 - Nov 9, 2025)
+- Support for mobile and desktop
+- Simple and intuitive interface
+- Customizable settings
 
-## First time developing plugins?
+## How to Use
 
-Quick starting guide for new plugin devs:
+### Month View Calendar
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+1. Open a note where you want to insert a calendar
+2. Use the command palette (Ctrl/Cmd+P) and search for "Insert month calendar"
+3. Enter the month in YYYY-MM format (e.g., 2025-11 for November 2025)
+4. Click "Insert Month Calendar"
 
-## Releasing new releases
+Example output:
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+```markdown
+## November 2025
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
-
-## Adding your plugin to the community plugin list
-
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
-
-## How to use
-
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
-
-## Manually installing the plugin
-
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
-
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
-
-## Funding URL
-
-You can include funding URLs where people who use your plugin can financially support it.
-
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
-
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
+| Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday |
+|--------|--------|---------|-----------|----------|--------|----------|
+|  |  |  |  |  |  | 1 |
+| 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+| 9 | 10 | 11 | 12 | 13 | 14 | 15 |
+| 16 | 17 | 18 | 19 | 20 | 21 | 22 |
+| 23 | 24 | 25 | 26 | 27 | 28 | 29 |
+| 30 |  |  |  |  |  |  |
 ```
 
-If you have multiple URLs, you can also do:
+### Week View Calendar
 
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
+1. Open a note where you want to insert a calendar
+2. Use the command palette (Ctrl/Cmd+P) and search for "Insert week calendar"
+3. Enter any date in the week in YYYY-MM-DD format (e.g., 2025-11-03)
+4. Click "Insert Week Calendar"
+
+Example output:
+
+```markdown
+## Week of Nov 2 - Nov 8, 2025
+
+| Day | Date | Notes |
+|-----|------|-------|
+| Sunday | Nov 2 | |
+| Monday | Nov 3 | |
+| Tuesday | Nov 4 | |
+| Wednesday | Nov 5 | |
+| Thursday | Nov 6 | |
+| Friday | Nov 7 | |
+| Saturday | Nov 8 | |
 ```
 
-## API Documentation
+### Quick Insert Current Calendar
 
-See https://github.com/obsidianmd/obsidian-api
+You can also quickly insert a calendar for the current date using the "Insert calendar for current date" command. This will use your default view setting (month or week).
+
+## Installation
+
+### From Obsidian Community Plugins
+
+1. Open Obsidian Settings
+2. Go to Community Plugins and disable Safe Mode
+3. Click Browse and search for "Markdown Calendar Generator"
+4. Install the plugin and enable it
+
+### Manual Installation
+
+1. Download the latest release from the [GitHub releases page](https://github.com/zachatrocity/md-cal-gen/releases)
+2. Extract the zip file to your Obsidian vault's `.obsidian/plugins/` directory
+3. Enable the plugin in Obsidian's Community Plugins settings
+
+## Settings
+
+The plugin offers the following settings:
+
+- **Default View**: Choose between month or week view as your default calendar type
+- **Date Format**: Currently only supports YYYY-MM-DD format (this setting is for future expansion)
+
+## Development
+
+This plugin is built using the Obsidian Plugin API and TypeScript.
+
+### Building the plugin
+
+1. Clone this repository
+2. Run `npm install` to install dependencies
+3. Run `npm run dev` to start the compilation in watch mode
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+If you encounter any issues or have feature requests, please [open an issue](https://github.com/zachatrocity/md-cal-gen/issues) on the GitHub repository.
