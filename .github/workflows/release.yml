@@ -1,0 +1,67 @@
+name: Release Obsidian Plugin
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Need full history for version number
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build plugin
+        run: npm run build
+        
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+      - name: Bump version
+        id: bump-version
+        run: |
+          # Get the current version from manifest.json
+          CURRENT_VERSION=$(node -p "require('./manifest.json').version")
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Bump patch version
+          npm version patch
+          
+          # Get the new version
+          NEW_VERSION=$(node -p "require('./manifest.json').version")
+          echo "New version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          
+          # Push changes to manifest.json and versions.json
+          git push || echo "Failed to push changes, continuing with release"
+          
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.bump-version.outputs.new_version }}
+          name: ${{ steps.bump-version.outputs.new_version }}
+          draft: false
+          prerelease: false
+          files: |
+            manifest.json
+            main.js
+            styles.css
