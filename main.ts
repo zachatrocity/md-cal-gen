@@ -91,7 +91,7 @@ class MonthCalendarModal extends Modal {
 
 	onOpen() {
 		const {contentEl} = this;
-		contentEl.createEl('h2', {text: 'Insert Month Calendar'});
+		contentEl.createEl('h2', {text: 'Insert month calendar'});
 
 		// Create date input
 		const dateInputSetting = new Setting(contentEl)
@@ -113,7 +113,7 @@ class MonthCalendarModal extends Modal {
 
 		// Create placeholder input
 		const placeholderInputSetting = new Setting(contentEl)
-			.setName('Day Placeholder')
+			.setName('Day placeholder')
 			.setDesc('Optional text to add alongside the day number (e.g., " 📝" will show "1 📝")');
 		
 		const placeholderInput = placeholderInputSetting.controlEl.createEl('input', {
@@ -127,7 +127,7 @@ class MonthCalendarModal extends Modal {
 		new Setting(contentEl)
 			.addButton(button => {
 				button
-					.setButtonText('Insert Month Calendar')
+					.setButtonText('Insert month calendar')
 					.setCta()
 					.onClick(() => {
 						try {
@@ -158,7 +158,7 @@ class WeekCalendarModal extends Modal {
 
 	onOpen() {
 		const {contentEl} = this;
-		contentEl.createEl('h2', {text: 'Insert Week Calendar'});
+		contentEl.createEl('h2', {text: 'Insert week calendar'});
 
 		// Create date input
 		const dateInputSetting = new Setting(contentEl)
@@ -183,7 +183,7 @@ class WeekCalendarModal extends Modal {
 		new Setting(contentEl)
 			.addButton(button => {
 				button
-					.setButtonText('Insert Week Calendar')
+					.setButtonText('Insert week calendar')
 					.setCta()
 					.onClick(() => {
 						try {
@@ -216,14 +216,13 @@ class CalendarSettingTab extends PluginSettingTab {
 		const {containerEl} = this;
 
 		containerEl.empty();
-		containerEl.createEl('h2', {text: 'Markdown Calendar Generator Settings'});
 
 		new Setting(containerEl)
-			.setName('Default View')
+			.setName('Default view')
 			.setDesc('Choose the default calendar view type')
 			.addDropdown(dropdown => dropdown
-				.addOption('month', 'Month View')
-				.addOption('week', 'Week View')
+				.addOption('month', 'Month view')
+				.addOption('week', 'Week view')
 				.setValue(this.plugin.settings.defaultView)
 				.onChange(async (value: 'month' | 'week') => {
 					this.plugin.settings.defaultView = value;
